@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 1093970026}
   - component: {fileID: 1093970025}
   - component: {fileID: 1093970024}
+  - component: {fileID: 1093970027}
   m_Layer: 4
   m_Name: Rain
   m_TagString: Untagged
@@ -4955,6 +4956,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!65 &1093970027
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093970023}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20.994589, y: 21.348736, z: 269.45386}
+  m_Center: {x: 0.16516685, y: 0.034612663, z: 133.81573}
 --- !u!1 &1095840891
 GameObject:
   m_ObjectHideFlags: 0
@@ -5103,6 +5125,7 @@ GameObject:
   - component: {fileID: 1229313276}
   - component: {fileID: 1229313275}
   - component: {fileID: 1229313274}
+  - component: {fileID: 1229313277}
   m_Layer: 3
   m_Name: BugSwarm
   m_TagString: Untagged
@@ -9928,6 +9951,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1229313277
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1229313273}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8, y: 8, z: 8}
+  m_Center: {x: 0.29756856, y: -0.011631727, z: -0.19225693}
 --- !u!1 &1820137719
 GameObject:
   m_ObjectHideFlags: 0
