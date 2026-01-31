@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d985d85ea68b4409d1cd7ad049a4cc, type: 3}
   m_Name: Tiki
   m_EditorClassIdentifier: Assembly-CSharp::PlantData
-  test: asdasd
+  plantPrefab: {fileID: 0}
+  growSecondsPerStage: 30
+  growthStages:
+  - activityGoals: 00000000000000000000000003000000030000000300000004000000040000000400000004000000
+    parts:
+    - {fileID: 0}
+  - activityGoals: 030000000300000003000000000000000300000003000000010000000100000001000000
+    parts: []
+  soilType: 1

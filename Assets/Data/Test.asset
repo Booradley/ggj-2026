@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d985d85ea68b4409d1cd7ad049a4cc, type: 3}
   m_Name: Test
   m_EditorClassIdentifier: Assembly-CSharp::PlantData
-  test: fdgdfgfd
+  plantPrefab: {fileID: 0}
+  growSecondsPerStage: 30
+  growthStages: []
+  soilType: 0
