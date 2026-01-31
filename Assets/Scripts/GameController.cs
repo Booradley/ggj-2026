@@ -84,6 +84,11 @@ public class PlantState
             }
         }
 
+        public bool IsActivityGoalMet
+        {
+            get => true;
+        }
+
         private float _cycleTimeRemaining = 0;
         private float _score = 0;
 
@@ -108,12 +113,16 @@ public class PlantState
             if (HasPlant && !CanHarvest)
             {
                 _cycleTimeRemaining -= Time.deltaTime;
+
+                if (IsActivityGoalMet)
+                {
+                    
+                }
+
                 if (_cycleTimeRemaining <= 0)
                 {
                     if (_growthStageCycle < _plantData.growthStages[_growthStage].activityGoals.Length)
                     {
-                        // TODO: Update running score
-
                         // Go to next Activity Goal
                         _growthStageCycle++;
                         _cycleTimeRemaining = _plantData.growSecondsPerStage;
@@ -122,7 +131,6 @@ public class PlantState
                     }
                     else
                     {
-                        // TODO: Update running score
                         // TODO: Use score to determine texture to show on mask
 
                         if (_growthStage < _plantData.growthStages.Length)
