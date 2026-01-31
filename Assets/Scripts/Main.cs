@@ -4,17 +4,17 @@ using UnityEngine;
 public class Main : MonoBehaviour
 {
     [SerializeField]
-    public PlantData plantData;
+    public PlantData[] plantDatas;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private GameController _gameController = new GameController();
+
     void Start()
     {
-        
+        _gameController.Initialize(plantDatas);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        _gameController.Update();
     }
 }
