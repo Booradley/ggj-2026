@@ -7,6 +7,7 @@ public class Main : MonoBehaviour
     public PlantData[] plantDatas;
 
     private GameController _gameController = new GameController();
+    public GameController GameController { get => _gameController; }
 
     void Start()
     {

@@ -13,6 +13,7 @@ public enum SoilType
 [Serializable]
 public enum ActivityType
 {
+    None,
     Water,
     Dry,
     Light,
