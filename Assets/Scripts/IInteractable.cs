@@ -11,5 +11,9 @@ public interface IInteractable
 
     public Transform Transform { get; }
 
+    public Vector3 InteractionPromptOffset { get; }
+
+    public bool CanInteract { get; }
+
     public void OnInteract();
 }

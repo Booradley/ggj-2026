@@ -10,12 +10,18 @@ public class Interactor : MonoBehaviour
 
     public InputActionAsset actions;
 
+    public GameObject interactionPromptUI;
+
     private List<IInteractable> _validInteractables = new List<IInteractable>();
+    private GameObject _interactionPrompt;
 
     private void Awake()
     {
         _interactAction = actions.FindActionMap("Player").FindAction("Interact");
         _interactAction.performed += OnInteractPerformed;
+
+        _interactionPrompt = GameObject.Instantiate(interactionPromptUI);
+        _interactionPrompt.SetActive(false);
     }
 
     private void OnEnable()
@@ -40,11 +46,12 @@ public class Interactor : MonoBehaviour
         IInteractable closestInteractable = GetClosestInteractable();
         if (closestInteractable != null)
         {
-            
+            _interactionPrompt.SetActive(true);
+            _interactionPrompt.transform.position = closestInteractable.Transform.position + closestInteractable.InteractionPromptOffset;
         } 
         else
         {
-            
+            _interactionPrompt.SetActive(false);
         }
     }
 
@@ -76,14 +83,13 @@ public class Interactor : MonoBehaviour
 
         foreach (IInteractable interactable in _validInteractables)
         {
-            if (interactable.InteractableType == InteractableType.PlantPot)
+            if (!interactable.CanInteract) continue;
+
+            float distance = (this.transform.position - interactable.Transform.position).magnitude;
+            if (closestInteractable == null || distance < closestDistance)
             {
-                float distance = (this.transform.position - interactable.Transform.position).magnitude;
-                if (closestInteractable == null || distance < closestDistance)
-                {
-                    closestInteractable = interactable;
-                    closestDistance = distance;
-                }
+                closestInteractable = interactable;
+                closestDistance = distance;
             }
         }
 

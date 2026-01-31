@@ -1300,7 +1300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b1d9ff15ed332b4ca38447a5dcaacae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interactor
-  actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  actions: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}
+  interactionPromptUI: {fileID: 2645955273049845827, guid: dcf1a64c697e0ac44b1ef09f107b734c, type: 3}
 --- !u!1 &4523139366846529165
 GameObject:
   m_ObjectHideFlags: 0

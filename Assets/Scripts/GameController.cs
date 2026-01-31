@@ -1,12 +1,59 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameController
 {
-    public const float activityGoalSeconds = 10f;
+    private PlantData[] _plantDatas;
+    private List<PlantState> _plantStates = new List<PlantState>();
 
-    private class PlantState
+    public void Initialize(PlantData[] plantDatas)
+    {
+        _plantDatas = plantDatas;
+    }
+
+    public void Update()
+    {
+        foreach (PlantState plantState in _plantStates)
+        {
+            plantState.Update();
+        }
+    }
+
+    public PlantState RegisterPlantPot(PlantPot plantPot)
+    {
+        PlantState plantState = new PlantState(plantPot);
+        _plantStates.Add(plantState);
+        return plantState;
+    }
+
+    public void OnPlantPotInteraction(PlantPot plantPot)
+    {
+        foreach (PlantState plantState in _plantStates)
+        {
+            if (plantState.PlantPot == plantPot)
+            {
+                if (plantState.CanPlant)
+                {
+                    plantState.PlantSeed(_plantDatas[0]);
+                }
+                else if (plantState.CanHarvest)
+                {
+                    plantState.HarvestPlant();
+                }
+                else
+                {
+                    
+                }
+
+                return;
+            }
+        }
+    }
+}
+
+public class PlantState
     {
         private PlantPot _plantPot;
         public PlantPot PlantPot { get => _plantPot; }
@@ -38,14 +85,22 @@ public class GameController
         }
 
         private float _cycleTimeRemaining = 0;
+        private float _score = 0;
 
         public PlantState(PlantPot plantPot)
         {
             _plantPot = plantPot;
+            
+            ResetState();
+        }
+
+        private void ResetState()
+        {
             _plantData = null;
             _growthStage = 0;
             _growthStageCycle = 0;
             _cycleTimeRemaining = 0;
+            _score = 0;
         }
 
         public void Update()
@@ -57,20 +112,25 @@ public class GameController
                 {
                     if (_growthStageCycle < _plantData.growthStages[_growthStage].activityGoals.Length)
                     {
+                        // TODO: Update running score
+
                         // Go to next Activity Goal
                         _growthStageCycle++;
-                        _cycleTimeRemaining = activityGoalSeconds;
+                        _cycleTimeRemaining = _plantData.growSecondsPerStage;
 
                         _plantPot.UpdateActivityGoal(_growthStage, _growthStageCycle);
                     }
                     else
                     {
+                        // TODO: Update running score
+                        // TODO: Use score to determine texture to show on mask
+
                         if (_growthStage < _plantData.growthStages.Length)
                         {
                             // Go to next Growth Stage
                             _growthStage++;
                             _growthStageCycle = 0;
-                            _cycleTimeRemaining = activityGoalSeconds;
+                            _cycleTimeRemaining = _plantData.growSecondsPerStage;
 
                             _plantPot.UpdatePlant(_growthStage);
                             _plantPot.UpdateActivityGoal(_growthStage, _growthStageCycle);
@@ -87,46 +147,17 @@ public class GameController
                 }
             }
         }
-    }
 
-    private PlantData[] _plantDatas;
-    private List<PlantState> _plantStates = new List<PlantState>();
-
-    public void Initialize(PlantData[] plantDatas)
-    {
-        _plantDatas = plantDatas;
-    }
-
-    public void Update()
-    {
-        foreach (PlantState plantState in _plantStates)
+        public void PlantSeed(PlantData plantData)
         {
-            plantState.Update();
+            _plantData = plantData;
+            _plantPot.PlantSeed(plantData);
+        }
+
+        public void HarvestPlant()
+        {
+            _plantPot.HarvestPlant();
+            
+            ResetState();
         }
     }
-
-    public void RegisterPlantPot(PlantPot plantPot)
-    {
-        _plantStates.Add(new PlantState(plantPot));
-    }
-
-    public void OnPlantPotInteraction(PlantPot plantPot)
-    {
-        foreach (PlantState plantState in _plantStates)
-        {
-            if (plantState.PlantPot == plantPot)
-            {
-                if (plantState.CanPlant)
-                {
-                    
-                }
-                else if (plantState.CanHarvest)
-                {
-                    
-                }
-
-                return;
-            }
-        }
-    }
-}

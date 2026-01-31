@@ -1,12 +1,24 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlantPot : MonoBehaviour, IInteractable
 {
     private GameController _gameController;
+    private GameObject _mask;
+    private PlantData _plantData;
+    private PlantState _plantState;
 
     public InteractableType InteractableType => InteractableType.PlantPot;
 
     public Transform Transform => this.transform;
+
+    public Vector3 interactionPromptUIOffset;
+
+    public Vector3 InteractionPromptOffset { get => interactionPromptUIOffset; }
+
+    public bool CanInteract { get => _plantState.CanPlant || _plantState.CanHarvest; }
+
+    public Vector3 plantOffset;
 
     void Awake()
     {
@@ -15,7 +27,7 @@ public class PlantPot : MonoBehaviour, IInteractable
 
     void Start()
     {
-        _gameController.RegisterPlantPot(this);
+        _plantState = _gameController.RegisterPlantPot(this);
     }
 
     public void OnInteract()
@@ -25,12 +37,18 @@ public class PlantPot : MonoBehaviour, IInteractable
 
     public void PlantSeed(PlantData plantData)
     {
-        
+        _plantData = plantData;
+
+        _mask = GameObject.Instantiate(plantData.plantPrefab);
+        _mask.transform.position = this.transform.position + plantOffset;
+        _mask.transform.rotation = this.transform.rotation;
+
+        UpdatePlant(0);
     }
 
     public void UpdatePlant(int growthStage)
     {
-        
+        _mask.transform.position = this.transform.position + plantOffset + new Vector3(0, _plantData.growthStages[growthStage].yOffset, 0);
     }
 
     public void UpdateActivityGoal(int growthStage, int activityGoalIndex)
