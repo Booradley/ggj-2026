@@ -5,7 +5,9 @@ public class SoundPlayerVolume1 : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if (playOnLoad){
+            //play file
+        }
     }
 
     // Update is called once per frame
@@ -24,5 +26,5 @@ public class SoundPlayerVolume1 : MonoBehaviour
     public bool playOnLoad = false;
 
     [SerializeField]
-    public AudioSource file;
+    public AudioClip file;
 }
