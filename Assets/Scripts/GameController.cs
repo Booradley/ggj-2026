@@ -213,8 +213,9 @@ public class PlantPotState
             get
             {
                 List<ActivityType> activityTypes = _gameController.GetActivityTypesFor(this);
-                //Debug.Log(activityTypes.Count);
-                return activityTypes.Contains(CurrentActivityGoal) || (CurrentActivityGoal == ActivityType.Dry && !activityTypes.Contains(ActivityType.Water));
+                return activityTypes.Contains(CurrentActivityGoal)
+                    || (CurrentActivityGoal == ActivityType.Dry && !activityTypes.Contains(ActivityType.Water))
+                    || (CurrentActivityGoal == ActivityType.Quiet && !activityTypes.Contains(ActivityType.Loud));
             }
         }
 
