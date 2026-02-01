@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [Serializable]
 public struct ActivityTexture
@@ -27,6 +28,8 @@ public class Main : MonoBehaviour
     [SerializeField]
     public Texture2D[] mouthTextures;
 
+    public InputActionAsset actions;
+
     private GameController _gameController = new GameController();
     public GameController GameController { get => _gameController; }
 
@@ -39,7 +42,7 @@ public class Main : MonoBehaviour
             _activityGoalTextures.Add(activityTexture.activityType, activityTexture);
         }
 
-        _gameController.Initialize(this);
+        _gameController.Initialize(this, actions);
     }
 
     void Update()

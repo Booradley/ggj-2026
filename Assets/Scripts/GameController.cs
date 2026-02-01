@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameController
 {
@@ -13,10 +14,13 @@ public class GameController
     private List<ActivityVolume> _activityVolumes = new();
     private PlantPot _heldPlantPot;
     private int _plantIndex = 0;
+    private InputAction _interactAction;
 
-    public void Initialize(Main main)
+    public void Initialize(Main main, InputActionAsset actions)
     {
         _main = main;
+        _interactAction = actions.FindActionMap("Player").FindAction("Quit");
+        _interactAction.performed += OnQuit;
 
         ActivityVolume[] activityVolumes = GameObject.FindObjectsByType<ActivityVolume>(FindObjectsSortMode.None);
         foreach (ActivityVolume activityVolume in activityVolumes)
@@ -31,6 +35,11 @@ public class GameController
         {
             plantState.Update();
         }
+    }
+
+    private void OnQuit(InputAction.CallbackContext context)
+    {
+        Application.Quit();
     }
 
     public PlantPotState RegisterPlantPot(PlantPot plantPot)
@@ -221,7 +230,8 @@ public class PlantPotState
                 List<ActivityType> activityTypes = _gameController.GetActivityTypesFor(this);
                 return activityTypes.Contains(CurrentActivityGoal)
                     || (CurrentActivityGoal == ActivityType.Dry && !activityTypes.Contains(ActivityType.Water))
-                    || (CurrentActivityGoal == ActivityType.Quiet && !activityTypes.Contains(ActivityType.Loud));
+                    || (CurrentActivityGoal == ActivityType.Quiet && !activityTypes.Contains(ActivityType.Loud))
+                    || (CurrentActivityGoal == ActivityType.Light && !activityTypes.Contains(ActivityType.Dark));
             }
         }
 
