@@ -9,12 +9,19 @@ using UnityEngine;
 public class GameController
 {
     private Main _main;
-    private List<PlantPotState> _plantStates = new List<PlantPotState>();
+    private List<PlantPotState> _plantStates = new();
+    private List<ActivityVolume> _activityVolumes = new();
     private PlantPot _heldPlantPot;
 
     public void Initialize(Main main)
     {
         _main = main;
+
+        ActivityVolume[] activityVolumes = GameObject.FindObjectsByType<ActivityVolume>(FindObjectsSortMode.None);
+        foreach (ActivityVolume activityVolume in activityVolumes)
+        {
+            _activityVolumes.Add(activityVolume);
+        }
     }
 
     public void Update()
@@ -37,10 +44,17 @@ public class GameController
         // Drop pot if holding one
         if (_heldPlantPot)
         {
-            _heldPlantPot.gameObject.transform.localPosition = new Vector3(0, 0, 1);
-            _heldPlantPot.gameObject.transform.SetParent(null);
-            _heldPlantPot = null;
+            DropHeldPlant();
         }
+    }
+
+    private void DropHeldPlant()
+    {
+        if (!_heldPlantPot) return;
+
+        _heldPlantPot.gameObject.transform.localPosition = new Vector3(0, 0, 0.75f);
+        _heldPlantPot.gameObject.transform.SetParent(null);
+        _heldPlantPot = null;
     }
 
     public void OnPlantPotInteraction(PlantPot plantPot)
@@ -51,9 +65,7 @@ public class GameController
             {
                 if (_heldPlantPot)
                 {
-                    _heldPlantPot.gameObject.transform.localPosition = new Vector3(0, 0, 1);
-                    _heldPlantPot.gameObject.transform.SetParent(null);
-                    _heldPlantPot = null;
+                    DropHeldPlant();
                 }
                 else
                 {
@@ -63,13 +75,16 @@ public class GameController
                     }
                     else if (plantState.CanHarvest)
                     {
+                        MaskWearer maskWearer = GameObject.FindFirstObjectByType<MaskWearer>();
+                        maskWearer.WearMask(plantState);
+
                         plantState.HarvestPlant();
                     }
                     else
                     {
                         Interactor interactor = GameObject.FindFirstObjectByType<Interactor>();
                         plantPot.gameObject.transform.SetParent(interactor.gameObject.transform);
-                        plantPot.gameObject.transform.localPosition = new Vector3(0, 0.6f, 1);
+                        plantPot.gameObject.transform.localPosition = new Vector3(0, 0.6f, 0.75f);
                         _heldPlantPot = plantPot;
                     }
                 }
@@ -93,6 +108,23 @@ public class GameController
     {
         return _main.GetTextures(growthStage);
     }
+
+    private List<ActivityType> _activityTypeResult = new();
+
+    public List<ActivityType> GetActivityTypesFor(PlantPotState plantPotState)
+    {
+        _activityTypeResult.Clear();
+
+        foreach (ActivityVolume activityVolume in _activityVolumes)
+        {
+            if (activityVolume.IsAffecting(plantPotState.PlantPot.gameObject))
+            {
+                _activityTypeResult.Add(activityVolume.activityType);
+            }
+        }
+
+        return _activityTypeResult;
+    }
 }
 
 public class MaskState
@@ -113,7 +145,6 @@ public class MaskState
 
     public void SetIndex(int growthStage, int index)
     {
-        Debug.Log(index);
         _features[growthStage] = index;
     }
 }
@@ -127,7 +158,7 @@ public class PlantPotState
         private PlantData _plantData;
         public PlantData PlantData { get => _plantData; }
 
-        
+
         private MaskState _maskState;
         public MaskState MaskState { get => _maskState; }
 
@@ -147,7 +178,7 @@ public class PlantPotState
         {
             get
             {
-                return _plantData != null 
+                return _plantData != null
                     && _growthStage == _plantData.growthStages.Length - 1
                     && _growthStageCycle == _plantData.growthStages[_plantData.growthStages.Length - 1].activityGoals.Length - 1
                     && _cycleTimeRemaining <= 0;
@@ -156,7 +187,11 @@ public class PlantPotState
 
         public bool IsActivityGoalMet
         {
-            get => true;
+            get
+            {
+                List<ActivityType> activityTypes = _gameController.GetActivityTypesFor(this);
+                return activityTypes.Contains(CurrentActivityGoal) || (CurrentActivityGoal == ActivityType.Dry && !activityTypes.Contains(ActivityType.Water));
+            }
         }
 
         private float _cycleTimeRemaining = 0;
@@ -166,7 +201,7 @@ public class PlantPotState
         {
             _gameController = gameController;
             _plantPot = plantPot;
-            
+
             ResetState();
         }
 
@@ -185,7 +220,7 @@ public class PlantPotState
             if (HasPlant && !CanHarvest)
             {
                 _cycleTimeRemaining -= Time.deltaTime;
-                _score += Time.deltaTime * (IsActivityGoalMet ? 1 : -1) * (UnityEngine.Random.Range(0f, 1f) > 0.5f ? 1 : -1);
+                _score += Time.deltaTime * (IsActivityGoalMet ? 1 : -1);// * (UnityEngine.Random.Range(0f, 1f) > 0.5f ? 1 : -1);
 
                 //Debug.Log($"{_growthStage}, {_growthStageCycle}, {_score}");
 
@@ -206,8 +241,9 @@ public class PlantPotState
                         // Use score to determine texture to show on mask
                         float maxScore = _plantData.growthStages[_growthStage].activityGoals.Length * _plantData.growSecondsPerStage;
                         float scoreRatio = (maxScore + math.clamp(_score, -maxScore, maxScore)) / (maxScore * 2);
-                        
+
                         _maskState.SetIndex(_growthStage, (int)((_gameController.GetTextures(_growthStage).Length - 1) * scoreRatio));
+                        _plantPot.UpdateMask(_growthStage);
 
                         Debug.Log("Growing... Score: " + _score + ", " + scoreRatio);
 
@@ -247,7 +283,7 @@ public class PlantPotState
         public void HarvestPlant()
         {
             _plantPot.OnHarvestPlant();
-            
+
             ResetState();
         }
     }

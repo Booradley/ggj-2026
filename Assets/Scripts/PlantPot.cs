@@ -57,9 +57,13 @@ public class PlantPot : MonoBehaviour, IInteractable
         UpdateActivityGoal(0, 0);
     }
 
-    public void UpdatePlant(int growthStage)
+    public void UpdateMask(int growthStage)
     {
         _mask.SetIndex(growthStage, _plantPotState.MaskState.GetIndex(growthStage));
+    }
+
+    public void UpdatePlant(int growthStage)
+    {
         _mask.transform.position = this.transform.position + plantOffset + new Vector3(0, _plantPotState.PlantData.growthStages[growthStage].yOffset, 0);
     }
 
@@ -74,8 +78,6 @@ public class PlantPot : MonoBehaviour, IInteractable
         root.style.backgroundColor = new StyleColor(_gameController.GetActivityGoalTint(activityType));
         image.style.backgroundImage = new StyleBackground(_gameController.GetActivityGoalTexture(activityType));
         image.style.color = new StyleColor(_gameController.GetActivityGoalTint(activityType));
-
-        Debug.Log(root.style.backgroundColor);
     }
 
     public void OnPlantReady()

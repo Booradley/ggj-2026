@@ -1038,6 +1038,7 @@ GameObject:
   - component: {fileID: 135756642000475821}
   - component: {fileID: 4416926081852918493}
   - component: {fileID: 6304373257221090879}
+  - component: {fileID: 4051778476163142212}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -1302,6 +1303,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Interactor
   actions: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}
   interactionPromptUI: {fileID: 2645955273049845827, guid: dcf1a64c697e0ac44b1ef09f107b734c, type: 3}
+--- !u!114 &4051778476163142212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416926081852918481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bafba98fe89a54248b429cfec10a3f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MaskWearer
+  headBone: {fileID: 1399579107103275648}
+  maskOffset: {x: 0, y: -0.1, z: 0.1}
 --- !u!1 &4523139366846529165
 GameObject:
   m_ObjectHideFlags: 0
