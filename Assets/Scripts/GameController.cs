@@ -98,6 +98,11 @@ public class GameController
         }
     }
 
+    public void SetPlantIndex(int index)
+    {
+        
+    }
+
     public Texture2D GetActivityGoalTexture(ActivityType activityType)
     {
         return _main.GetActivityGoalTexture(activityType);
