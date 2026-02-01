@@ -21,8 +21,15 @@ public class MaskWearer : MonoBehaviour
     {
         RemoveMask();
 
+        plantPotState.MaskState.PlayMaskSound();
+
         _mask = GameObject.Instantiate(plantPotState.PlantData.plantPrefab).GetComponent<Mask>();
         _mask.transform.SetParent(headBone.transform, false);
         _mask.transform.localPosition = maskOffset;
+
+        for (int i = 0; i < plantPotState.MaskState.Features.Length; i++)
+        {
+            _mask.SetIndex(i, plantPotState.MaskState.GetIndex(i));
+        }
     }
 }

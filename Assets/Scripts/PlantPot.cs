@@ -22,6 +22,8 @@ public class PlantPot : MonoBehaviour, IInteractable
 
     public Vector3 activityGoalIndicatorOffset;
 
+    public Collider interactionCollider;
+
     public bool CanInteract { get => true; }
 
     public Vector3 plantOffset;
@@ -29,6 +31,13 @@ public class PlantPot : MonoBehaviour, IInteractable
     void Awake()
     {
         _gameController = GameObject.FindFirstObjectByType<Main>().GameController;
+
+        ActivityVolume[] activityVolumes = GameObject.FindObjectsByType<ActivityVolume>(FindObjectsSortMode.None);
+        foreach (ActivityVolume activityVolume in activityVolumes)
+        {
+            Collider collider = activityVolume.GetComponent<Collider>();
+            Physics.IgnoreCollision(interactionCollider, collider);
+        }
     }
 
     void Start()

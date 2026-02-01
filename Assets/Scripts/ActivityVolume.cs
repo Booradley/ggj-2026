@@ -15,6 +15,7 @@ public class ActivityVolume : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name);
         _affecting.Add(other.gameObject);
     }
 
