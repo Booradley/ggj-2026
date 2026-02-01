@@ -133,7 +133,7 @@ public class GameController
 
 public class MaskState
 {
-    private int[] _features = new int[]{0, 0, 0, 0};
+    private int[] _features = new int[]{0, 0, 0};
     public int[] Features { get => _features; }
 
     private GameController _gameController;
