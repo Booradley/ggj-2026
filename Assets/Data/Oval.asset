@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Oval
   m_EditorClassIdentifier: Assembly-CSharp::PlantData
   plantPrefab: {fileID: 2098845982395358710, guid: 24b12530f7e412649b23ee7987785d12, type: 3}
-  growSecondsPerStage: 2
+  growSecondsPerStage: 9
   growthStages:
-  - activityGoals: 010000000200000004000000
+  - activityGoals: 040000000400000001000000
     yOffset: -0.32
-  - activityGoals: 010000000200000004000000
+  - activityGoals: 030000000400000006000000
     yOffset: -0.15
-  - activityGoals: 010000000200000004000000
+  - activityGoals: 010000000900000004000000
     yOffset: -0.1
