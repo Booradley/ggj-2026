@@ -1315,6 +1315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bafba98fe89a54248b429cfec10a3f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaskWearer
+  headBone: {fileID: 1399579107103275648}
+  maskOffset: {x: 0, y: -0.1, z: 0.1}
 --- !u!1 &4523139366846529165
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 562256592729940252}
-  - component: {fileID: 1561241670487360806}
   - component: {fileID: 1658885465646446042}
   - component: {fileID: 8514121742725747083}
   m_Layer: 0
@@ -36,27 +35,6 @@ Transform:
   - {fileID: 7898525372765247}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1561241670487360806
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 347156301379887504}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &1658885465646446042
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -93,7 +71,7 @@ MonoBehaviour:
   interactionPromptUIOffset: {x: 0.35, y: 0.2, z: 0}
   activityGoalIndicatorPrefab: {fileID: 2645955273049845827, guid: c582636b16f2542449b1f3dc4361a99d, type: 3}
   activityGoalIndicatorOffset: {x: 0, y: 1, z: 0}
-  plantOffset: {x: 0, y: 0.35, z: 0}
+  plantOffset: {x: 0, y: 0.38, z: 0}
 --- !u!1 &1589294003356285366
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,6 +173,7 @@ GameObject:
   - component: {fileID: 7898525372765247}
   - component: {fileID: 1132197152682101026}
   - component: {fileID: 3537174989167207906}
+  - component: {fileID: 995099169040080882}
   m_Layer: 0
   m_Name: Pot
   m_TagString: Untagged
@@ -274,3 +253,25 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &995099169040080882
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4912378903040334401}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8517725900640002782, guid: bac72cd4b6b0959499f55f7b0e7451b6, type: 3}
