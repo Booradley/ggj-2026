@@ -5,6 +5,13 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
+[Serializable]
+public struct buttonData
+{
+    public PlantData plantData;
+    public GameObject button;
+}
+
 public class Hotbar : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,8 +26,12 @@ public class Hotbar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // on input call:
+        changeCursorPos(1);
+        // where '1' will be the input value passed by the user
     }
+
+    public buttonData[] buttons;
 
     private UnityEngine.Vector3 invisible = new UnityEngine.Vector3(0f, 0f, 0f);
     private UnityEngine.Vector3 visible = new UnityEngine.Vector3(3f,3f,1f);
@@ -64,19 +75,16 @@ public class Hotbar : MonoBehaviour
         // if cursor is past the max Left pos, set cursor to max Right pos & vice versa
         if (dir < 0)
         {
-            posX = posX + 114;
-            if (pos > 228)
-            {
-                selectionIndicator.transform.position = new UnityEngine.Vector3(posX, posY,posZ);
-            }
+            
         }
         else if (dir > 0)
         {
-            pos = pos - 114;
-            if (pos < -228)
-            {
-                selectionIndicator.transform.position = new UnityEngine.Vector3(posX, posY,posZ);
-            }
+            
         }
+    }
+
+    private void makeSelection(int type)
+    {
+        // set the user's selection to the currently highlighted plant type
     }
 }
