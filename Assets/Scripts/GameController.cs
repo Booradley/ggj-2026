@@ -51,7 +51,7 @@ public class GameController
             {
                 if (_heldPlantPot)
                 {
-                    _heldPlantPot.gameObject.transform.localPosition = new Vector3(0, 0, 1);
+                    _heldPlantPot.gameObject.transform.localPosition = new Vector3(0, 0, 0.75f);
                     _heldPlantPot.gameObject.transform.SetParent(null);
                     _heldPlantPot = null;
                 }
@@ -63,13 +63,16 @@ public class GameController
                     }
                     else if (plantState.CanHarvest)
                     {
+                        MaskWearer maskWearer = GameObject.FindFirstObjectByType<MaskWearer>();
+                        
+
                         plantState.HarvestPlant();
                     }
                     else
                     {
                         Interactor interactor = GameObject.FindFirstObjectByType<Interactor>();
                         plantPot.gameObject.transform.SetParent(interactor.gameObject.transform);
-                        plantPot.gameObject.transform.localPosition = new Vector3(0, 0.6f, 1);
+                        plantPot.gameObject.transform.localPosition = new Vector3(0, 0.6f, 0.75f);
                         _heldPlantPot = plantPot;
                     }
                 }
@@ -113,7 +116,6 @@ public class MaskState
 
     public void SetIndex(int growthStage, int index)
     {
-        Debug.Log(index);
         _features[growthStage] = index;
     }
 }
@@ -185,7 +187,7 @@ public class PlantPotState
             if (HasPlant && !CanHarvest)
             {
                 _cycleTimeRemaining -= Time.deltaTime;
-                _score += Time.deltaTime * (IsActivityGoalMet ? 1 : -1) * (UnityEngine.Random.Range(0f, 1f) > 0.5f ? 1 : -1);
+                _score += Time.deltaTime * (IsActivityGoalMet ? 1 : -1);// * (UnityEngine.Random.Range(0f, 1f) > 0.5f ? 1 : -1);
 
                 //Debug.Log($"{_growthStage}, {_growthStageCycle}, {_score}");
 
@@ -208,6 +210,7 @@ public class PlantPotState
                         float scoreRatio = (maxScore + math.clamp(_score, -maxScore, maxScore)) / (maxScore * 2);
                         
                         _maskState.SetIndex(_growthStage, (int)((_gameController.GetTextures(_growthStage).Length - 1) * scoreRatio));
+                        _plantPot.UpdateMask(_growthStage);
 
                         Debug.Log("Growing... Score: " + _score + ", " + scoreRatio);
 
