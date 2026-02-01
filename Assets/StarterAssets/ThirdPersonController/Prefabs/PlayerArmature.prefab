@@ -1316,7 +1316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaskWearer
   headBone: {fileID: 1399579107103275648}
-  maskOffset: {x: 0, y: -0.1, z: 0.1}
+  maskOffset: {x: 0, y: -0.08, z: 0.1}
 --- !u!1 &4523139366846529165
 GameObject:
   m_ObjectHideFlags: 0
