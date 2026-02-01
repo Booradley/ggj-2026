@@ -1,18 +1,67 @@
+using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour
 {
+    private GameController _gameController;
+    private InputAction _interactAction;
+
+    public InputActionAsset actions;
+
+    public GameObject interactionPromptUI;
+
     private List<IInteractable> _validInteractables = new List<IInteractable>();
+    private GameObject _interactionPrompt;
+
+    private void Awake()
+    {
+        _gameController = GameObject.FindFirstObjectByType<Main>().GameController;
+
+        _interactAction = actions.FindActionMap("Player").FindAction("Interact");
+        _interactAction.performed += OnInteractPerformed;
+
+        _interactionPrompt = GameObject.Instantiate(interactionPromptUI);
+        _interactionPrompt.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        _interactAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        _interactAction.performed -= OnInteractPerformed;
+        _interactAction.Disable();
+    }
+
+    void OnInteractPerformed(InputAction.CallbackContext context)
+    {
+        IInteractable closestInteractable = GetClosestInteractable();
+        if (closestInteractable != null)
+        {
+            closestInteractable?.OnInteract();
+        }
+        else
+        {
+            _gameController.OnInteract();
+        }
+    }
 
     void Update()
     {
-        foreach (IInteractable interactable in _validInteractables)
+        IInteractable closestInteractable = GetClosestInteractable();
+        if (closestInteractable != null)
         {
-            if (interactable.InteractableType == InteractableType.PlantPot)
-            {
-
-            }
+            _interactionPrompt.SetActive(true);
+            _interactionPrompt.transform.position = closestInteractable.Transform.position + (Camera.main.transform.rotation * closestInteractable.InteractionPromptOffset);
+        } 
+        else
+        {
+            _interactionPrompt.SetActive(false);
         }
     }
 
@@ -35,5 +84,25 @@ public class Interactor : MonoBehaviour
         {
             _validInteractables.Remove(interactable);
         }
+    }
+
+    private IInteractable GetClosestInteractable()
+    {
+        IInteractable closestInteractable = null;
+        float closestDistance = math.INFINITY;
+
+        foreach (IInteractable interactable in _validInteractables)
+        {
+            if (!interactable.CanInteract) continue;
+
+            float distance = (this.transform.position - interactable.Transform.position).magnitude;
+            if (closestInteractable == null || distance < closestDistance)
+            {
+                closestInteractable = interactable;
+                closestDistance = distance;
+            }
+        }
+
+        return closestInteractable;
     }
 }
