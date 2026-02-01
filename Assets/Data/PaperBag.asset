@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PaperBag
   m_EditorClassIdentifier: Assembly-CSharp::PlantData
   plantPrefab: {fileID: 3059677374375191152, guid: e09ab4d9f7582924f829dc90b81b0bef, type: 3}
-  growSecondsPerStage: 1
+  growSecondsPerStage: 2
   growthStages:
   - activityGoals: 010000000200000004000000
     yOffset: -0.32

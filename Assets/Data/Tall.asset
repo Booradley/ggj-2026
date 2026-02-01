@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tall
   m_EditorClassIdentifier: Assembly-CSharp::PlantData
   plantPrefab: {fileID: 6810451705912685569, guid: 9969479db0652234284f694f6672583c, type: 3}
-  growSecondsPerStage: 1
+  growSecondsPerStage: 2
   growthStages:
   - activityGoals: 010000000200000004000000
     yOffset: -0.32
