@@ -5,6 +5,13 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
+[Serializable]
+public struct ButtonData
+{
+    public PlantData plantData;
+    public GameObject button;
+}
+
 public class Hotbar : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -27,6 +34,8 @@ public class Hotbar : MonoBehaviour
     private bool IsVisible = true;
 
     public GameObject selectionIndicator;
+
+    public ButtonData[] buttons;
 
     private float posX;
     float posY;

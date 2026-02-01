@@ -336,10 +336,10 @@ RectTransform:
   - {fileID: 355796581}
   m_Father: {fileID: 1862162173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -195}
-  m_SizeDelta: {x: -300, y: -490}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 145}
+  m_SizeDelta: {x: 570, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &121393089
 MonoBehaviour:
@@ -392,6 +392,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   selectionIndicator: {fileID: 1737202556}
+  buttons:
+  - plantData: {fileID: 11400000, guid: a930ec3a2613fd4458b46eaa1d35da01, type: 2}
+    button: {fileID: 147513442}
+  - plantData: {fileID: 11400000, guid: a930ec3a2613fd4458b46eaa1d35da01, type: 2}
+    button: {fileID: 326006573}
+  - plantData: {fileID: 11400000, guid: a930ec3a2613fd4458b46eaa1d35da01, type: 2}
+    button: {fileID: 2005314168}
+  - plantData: {fileID: 11400000, guid: a930ec3a2613fd4458b46eaa1d35da01, type: 2}
+    button: {fileID: 53150376}
+  - plantData: {fileID: 11400000, guid: a930ec3a2613fd4458b46eaa1d35da01, type: 2}
+    button: {fileID: 355796580}
 --- !u!1 &147513442
 GameObject:
   m_ObjectHideFlags: 0
