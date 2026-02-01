@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class GameController
 {
     private PlantData[] _plantDatas;
-    private Dictionary<ActivityType, Texture2D> _activityGoalTextures;
-    private List<PlantState> _plantStates = new List<PlantState>();
+    private Dictionary<ActivityType, ActivityTexture> _activityGoalTextures;
+    private List<PlantPotState> _plantStates = new List<PlantPotState>();
     private PlantPot _heldPlantPot;
 
-    public void Initialize(PlantData[] plantDatas, Dictionary<ActivityType, Texture2D> activityGoalTextures)
+    public void Initialize(PlantData[] plantDatas, Dictionary<ActivityType, ActivityTexture> activityGoalTextures)
     {
         _plantDatas = plantDatas;
         _activityGoalTextures = activityGoalTextures;
@@ -19,15 +20,15 @@ public class GameController
 
     public void Update()
     {
-        foreach (PlantState plantState in _plantStates)
+        foreach (PlantPotState plantState in _plantStates)
         {
             plantState.Update();
         }
     }
 
-    public PlantState RegisterPlantPot(PlantPot plantPot)
+    public PlantPotState RegisterPlantPot(PlantPot plantPot)
     {
-        PlantState plantState = new PlantState(plantPot);
+        PlantPotState plantState = new PlantPotState(plantPot);
         _plantStates.Add(plantState);
         return plantState;
     }
@@ -43,7 +44,7 @@ public class GameController
 
     public void OnPlantPotInteraction(PlantPot plantPot)
     {
-        foreach (PlantState plantState in _plantStates)
+        foreach (PlantPotState plantState in _plantStates)
         {
             if (plantState.PlantPot == plantPot)
             {
@@ -71,17 +72,60 @@ public class GameController
 
     public Texture2D GetActivityGoalTexture(ActivityType activityType)
     {
-        return _activityGoalTextures[activityType];
+        return _activityGoalTextures[activityType].texture;
+    }
+
+    public Color GetActivityGoalTint(ActivityType activityType)
+    {
+        return _activityGoalTextures[activityType].tint;
     }
 }
 
-public class PlantState
+public class MaskState
+{
+    private int _eyeIndex;
+    public int EyeIndex { get; }
+    
+    private int _noseIndex;
+    public int NoseIndex { get; }
+
+    private int _mouthIndex;
+    public int MouthIndex { get; }
+
+    private PlantData _plantData;
+
+    public MaskState(PlantData plantData)
+    {
+        _plantData = plantData;
+    }
+
+    public void SetEyeIndex(int index)
+    {
+        _eyeIndex = index;
+    }
+
+    public void SetNoseIndex(int index)
+    {
+        _noseIndex = index;
+    }
+
+    public void SetMouthIndex(int index)
+    {
+        _mouthIndex = index;
+    }
+}
+
+public class PlantPotState
     {
         private PlantPot _plantPot;
         public PlantPot PlantPot { get => _plantPot; }
 
         private PlantData _plantData;
         public PlantData PlantData { get => _plantData; }
+
+        
+        private MaskState _maskState;
+        public MaskState MaskState { get => _maskState; }
 
         private int _growthStage = 0;
         public int GrowthStage { get => _growthStage; }
@@ -114,7 +158,7 @@ public class PlantState
         private float _cycleTimeRemaining = 0;
         private float _score = 0;
 
-        public PlantState(PlantPot plantPot)
+        public PlantPotState(PlantPot plantPot)
         {
             _plantPot = plantPot;
             
@@ -124,6 +168,7 @@ public class PlantState
         private void ResetState()
         {
             _plantData = null;
+            _maskState = null;
             _growthStage = 0;
             _growthStageCycle = 0;
             _cycleTimeRemaining = 0;
@@ -185,14 +230,16 @@ public class PlantState
 
         public void PlantSeed(PlantData plantData)
         {
+            _maskState = new MaskState(plantData);
             _plantData = plantData;
-            _plantPot.PlantSeed(plantData);
             _cycleTimeRemaining = _plantData.growSecondsPerStage;
+
+            _plantPot.OnPlantSeed();
         }
 
         public void HarvestPlant()
         {
-            _plantPot.HarvestPlant();
+            _plantPot.OnHarvestPlant();
             
             ResetState();
         }

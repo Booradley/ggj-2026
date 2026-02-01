@@ -7,8 +7,7 @@ public class PlantPot : MonoBehaviour, IInteractable
 {
     private GameController _gameController;
     private GameObject _mask;
-    private PlantData _plantData;
-    private PlantState _plantState;
+    private PlantPotState _plantPotState;
     private GameObject _activityGoalIndicator;
 
     public InteractableType InteractableType => InteractableType.PlantPot;
@@ -34,7 +33,7 @@ public class PlantPot : MonoBehaviour, IInteractable
 
     void Start()
     {
-        _plantState = _gameController.RegisterPlantPot(this);
+        _plantPotState = _gameController.RegisterPlantPot(this);
 
         _activityGoalIndicator = GameObject.Instantiate(activityGoalIndicatorPrefab);
         _activityGoalIndicator.transform.position = this.transform.position + (Camera.main.transform.rotation * activityGoalIndicatorOffset);
@@ -46,11 +45,9 @@ public class PlantPot : MonoBehaviour, IInteractable
         _gameController.OnPlantPotInteraction(this);
     }
 
-    public void PlantSeed(PlantData plantData)
+    public void OnPlantSeed()
     {
-        _plantData = plantData;
-
-        _mask = GameObject.Instantiate(plantData.plantPrefab);
+        _mask = GameObject.Instantiate(_plantPotState.PlantData.plantPrefab);
         _mask.transform.position = this.transform.position + plantOffset;
         _mask.transform.rotation = this.transform.rotation;
 
@@ -60,15 +57,23 @@ public class PlantPot : MonoBehaviour, IInteractable
 
     public void UpdatePlant(int growthStage)
     {
-        _mask.transform.position = this.transform.position + plantOffset + new Vector3(0, _plantData.growthStages[growthStage].yOffset, 0);
+        
+        _mask.transform.position = this.transform.position + plantOffset + new Vector3(0, _plantPotState.PlantData.growthStages[growthStage].yOffset, 0);
     }
 
     public void UpdateActivityGoal(int growthStage, int activityGoalIndex)
     {
         _activityGoalIndicator.SetActive(true);
 
-        VisualElement image = _activityGoalIndicator.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("Icon");
-        image.style.backgroundImage = new StyleBackground(_gameController.GetActivityGoalTexture(_plantData.growthStages[growthStage].activityGoals[activityGoalIndex]));
+        ActivityType activityType = _plantPotState.PlantData.growthStages[growthStage].activityGoals[activityGoalIndex];
+        VisualElement root = _activityGoalIndicator.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("Root");
+        VisualElement image = root.Q<VisualElement>("Icon");
+
+        root.style.backgroundColor = new StyleColor(_gameController.GetActivityGoalTint(activityType));
+        image.style.backgroundImage = new StyleBackground(_gameController.GetActivityGoalTexture(activityType));
+        image.style.color = new StyleColor(_gameController.GetActivityGoalTint(activityType));
+
+        Debug.Log(root.style.backgroundColor);
     }
 
     public void OnPlantReady()
@@ -77,11 +82,9 @@ public class PlantPot : MonoBehaviour, IInteractable
         _mask.transform.position = this.transform.position + plantOffset;
     }
 
-    public void HarvestPlant()
+    public void OnHarvestPlant()
     {
         GameObject.Destroy(_mask);
-
-        _plantData = null;
         _mask = null;
     }
 }

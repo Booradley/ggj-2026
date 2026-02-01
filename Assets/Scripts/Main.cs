@@ -7,6 +7,7 @@ public struct ActivityTexture
 {
     public ActivityType activityType;
     public Texture2D texture;
+    public Color32 tint;
 }
 
 public class Main : MonoBehaviour
@@ -22,10 +23,10 @@ public class Main : MonoBehaviour
 
     void Start()
     {
-        Dictionary<ActivityType, Texture2D> activityTextureLookup = new();
+        Dictionary<ActivityType, ActivityTexture> activityTextureLookup = new();
         foreach (ActivityTexture activityTexture in activityTextures)
         {
-            activityTextureLookup.Add(activityTexture.activityType, activityTexture.texture);
+            activityTextureLookup.Add(activityTexture.activityType, activityTexture);
         }
 
         _gameController.Initialize(plantDatas, activityTextureLookup);
