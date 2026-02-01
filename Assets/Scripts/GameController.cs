@@ -12,6 +12,7 @@ public class GameController
     private List<PlantPotState> _plantStates = new();
     private List<ActivityVolume> _activityVolumes = new();
     private PlantPot _heldPlantPot;
+    private int _plantIndex = 0;
 
     public void Initialize(Main main)
     {
@@ -75,7 +76,7 @@ public class GameController
                 {
                     if (plantState.CanPlant)
                     {
-                        plantState.PlantSeed(_main.plantDatas[0]);
+                        plantState.PlantSeed(_main.plantDatas[_plantIndex]);
                     }
                     else if (plantState.CanHarvest)
                     {
@@ -100,7 +101,7 @@ public class GameController
 
     public void SetPlantIndex(int index)
     {
-        
+        _plantIndex = index;
     }
 
     public Texture2D GetActivityGoalTexture(ActivityType activityType)
