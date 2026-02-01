@@ -29,7 +29,6 @@ public class MaskWearer : MonoBehaviour
 
         for (int i = 0; i < plantPotState.MaskState.Features.Length; i++)
         {
-            Debug.Log(plantPotState.MaskState.GetIndex(i));
             _mask.SetIndex(i, plantPotState.MaskState.GetIndex(i));
         }
     }

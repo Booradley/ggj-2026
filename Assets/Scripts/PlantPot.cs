@@ -22,6 +22,8 @@ public class PlantPot : MonoBehaviour, IInteractable
 
     public Vector3 activityGoalIndicatorOffset;
 
+    public GameObject bugs;
+
     public Collider interactionCollider;
 
     public bool CanInteract { get => true; }
@@ -38,6 +40,8 @@ public class PlantPot : MonoBehaviour, IInteractable
             Collider collider = activityVolume.GetComponent<Collider>();
             Physics.IgnoreCollision(interactionCollider, collider);
         }
+
+        bugs.SetActive(false);
     }
 
     void Start()
@@ -87,6 +91,8 @@ public class PlantPot : MonoBehaviour, IInteractable
         root.style.backgroundColor = new StyleColor(_gameController.GetActivityGoalTint(activityType));
         image.style.backgroundImage = new StyleBackground(_gameController.GetActivityGoalTexture(activityType));
         image.style.color = new StyleColor(_gameController.GetActivityGoalTint(activityType));
+
+        bugs.SetActive(activityType == ActivityType.Bug);
     }
 
     public void OnPlantReady()
