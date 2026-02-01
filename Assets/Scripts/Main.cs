@@ -17,13 +17,13 @@ public class Main : MonoBehaviour
 
     [SerializeField]
     public ActivityTexture[] activityTextures;
-    
+
     [SerializeField]
     public Texture2D[] eyeTextures;
-    
+
     [SerializeField]
     public Texture2D[] noseTextures;
-    
+
     [SerializeField]
     public Texture2D[] mouthTextures;
 
