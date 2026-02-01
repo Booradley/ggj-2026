@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 347156301379887504}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.153, y: 0.178, z: 3.754}
+  m_LocalPosition: {x: 3.153, y: 0, z: 3.754}
   m_LocalScale: {x: 0.35476, y: 0.35476, z: 0.35476}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -90,10 +90,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bac027a3f8a5b2429b59068bd9548d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlantPot
-  interactionPromptUIOffset: {x: 0.35, y: 0.05, z: 0}
+  interactionPromptUIOffset: {x: 0.35, y: 0.2, z: 0}
   activityGoalIndicatorPrefab: {fileID: 2645955273049845827, guid: c582636b16f2542449b1f3dc4361a99d, type: 3}
-  activityGoalIndicatorOffset: {x: 0, y: 0.5, z: 0}
-  plantOffset: {x: 0, y: 0.2, z: 0}
+  activityGoalIndicatorOffset: {x: 0, y: 1, z: 0}
+  plantOffset: {x: 0, y: 0.35, z: 0}
 --- !u!1 &1589294003356285366
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +121,7 @@ Transform:
   m_GameObject: {fileID: 1589294003356285366}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.0028851365, y: -0.519106, z: 0.0063603385}
+  m_LocalPosition: {x: 0.0028851365, y: 0, z: 0.0063603385}
   m_LocalScale: {x: 31.581182, y: 31.581182, z: 31.581182}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -211,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 4912378903040334401}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0.0028851365, y: -0.519106, z: 0.0063603385}
+  m_LocalPosition: {x: 0.0028851365, y: 0, z: 0.0063603385}
   m_LocalScale: {x: 28.188076, y: 28.188076, z: 28.188076}
   m_ConstrainProportionsScale: 0
   m_Children: []

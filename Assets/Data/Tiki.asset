@@ -16,8 +16,8 @@ MonoBehaviour:
   growSecondsPerStage: 1
   growthStages:
   - activityGoals: 010000000200000004000000
-    yOffset: -0.3
+    yOffset: -0.32
   - activityGoals: 010000000200000004000000
-    yOffset: -0.2
+    yOffset: -0.15
   - activityGoals: 010000000200000004000000
     yOffset: -0.1

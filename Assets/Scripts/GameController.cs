@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Dependencies.NCalc;
+using UnityEditor;
 using UnityEngine;
 
 public class GameController
@@ -36,7 +37,9 @@ public class GameController
         // Drop pot if holding one
         if (_heldPlantPot)
         {
-            
+            _heldPlantPot.gameObject.transform.localPosition = new Vector3(0, 0, 1);
+            _heldPlantPot.gameObject.transform.SetParent(null);
+            _heldPlantPot = null;
         }
     }
 
@@ -46,20 +49,28 @@ public class GameController
         {
             if (plantState.PlantPot == plantPot)
             {
-                if (plantState.CanPlant)
+                if (_heldPlantPot)
                 {
-                    plantState.PlantSeed(_main.plantDatas[0]);
-                }
-                else if (plantState.CanHarvest)
-                {
-                    plantState.HarvestPlant();
+                    _heldPlantPot.gameObject.transform.localPosition = new Vector3(0, 0, 1);
+                    _heldPlantPot.gameObject.transform.SetParent(null);
+                    _heldPlantPot = null;
                 }
                 else
                 {
-                    // Pick pot up if not holding one
-                    if (!_heldPlantPot)
+                    if (plantState.CanPlant)
                     {
-                        
+                        plantState.PlantSeed(_main.plantDatas[0]);
+                    }
+                    else if (plantState.CanHarvest)
+                    {
+                        plantState.HarvestPlant();
+                    }
+                    else
+                    {
+                        Interactor interactor = GameObject.FindFirstObjectByType<Interactor>();
+                        plantPot.gameObject.transform.SetParent(interactor.gameObject.transform);
+                        plantPot.gameObject.transform.localPosition = new Vector3(0, 0.6f, 1);
+                        _heldPlantPot = plantPot;
                     }
                 }
 
@@ -102,6 +113,7 @@ public class MaskState
 
     public void SetIndex(int growthStage, int index)
     {
+        Debug.Log(index);
         _features[growthStage] = index;
     }
 }
@@ -173,7 +185,7 @@ public class PlantPotState
             if (HasPlant && !CanHarvest)
             {
                 _cycleTimeRemaining -= Time.deltaTime;
-                _score += Time.deltaTime * (IsActivityGoalMet ? 1 : -1);
+                _score += Time.deltaTime * (IsActivityGoalMet ? 1 : -1) * (UnityEngine.Random.Range(0f, 1f) > 0.5f ? 1 : -1);
 
                 //Debug.Log($"{_growthStage}, {_growthStageCycle}, {_score}");
 
@@ -194,8 +206,8 @@ public class PlantPotState
                         // Use score to determine texture to show on mask
                         float maxScore = _plantData.growthStages[_growthStage].activityGoals.Length * _plantData.growSecondsPerStage;
                         float scoreRatio = (maxScore + math.clamp(_score, -maxScore, maxScore)) / (maxScore * 2);
-
-                        _maskState.SetIndex(_growthStage, (int)(_gameController.GetTextures(_growthStage).Length * scoreRatio));
+                        
+                        _maskState.SetIndex(_growthStage, (int)((_gameController.GetTextures(_growthStage).Length - 1) * scoreRatio));
 
                         Debug.Log("Growing... Score: " + _score + ", " + scoreRatio);
 

@@ -36,6 +36,7 @@ public class PlantPot : MonoBehaviour, IInteractable
         _plantPotState = _gameController.RegisterPlantPot(this);
 
         _activityGoalIndicator = GameObject.Instantiate(activityGoalIndicatorPrefab);
+        _activityGoalIndicator.transform.SetParent(transform);
         _activityGoalIndicator.transform.position = this.transform.position + (Camera.main.transform.rotation * activityGoalIndicatorOffset);
         _activityGoalIndicator.SetActive(false);
     }
@@ -50,6 +51,7 @@ public class PlantPot : MonoBehaviour, IInteractable
         _mask = GameObject.Instantiate(_plantPotState.PlantData.plantPrefab).GetComponent<Mask>();
         _mask.transform.position = this.transform.position + plantOffset;
         _mask.transform.rotation = this.transform.rotation;
+        _mask.transform.SetParent(this.transform, true);
 
         UpdatePlant(0);
         UpdateActivityGoal(0, 0);
@@ -84,7 +86,7 @@ public class PlantPot : MonoBehaviour, IInteractable
 
     public void OnHarvestPlant()
     {
-        GameObject.Destroy(_mask);
+        GameObject.Destroy(_mask.gameObject);
         _mask = null;
     }
 }
