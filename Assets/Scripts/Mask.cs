@@ -15,7 +15,6 @@ public class Mask : MonoBehaviour
 
     public void SetIndex(int growthStage, int index)
     {
-        Debug.Log(_gameController.GetTextures(growthStage)[index]);
         if (growthStage == 0)
         {
             eyes.material.SetTexture(Shader.PropertyToID("_BaseMap"), _gameController.GetTextures(growthStage)[index]);
