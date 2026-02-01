@@ -49,11 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Main
   plantDatas:
+  - {fileID: 11400000, guid: 6ebca2c3c7d237a4bbaa316211728e88, type: 2}
+  - {fileID: 11400000, guid: cdb77d1a274ee0d49af57fc9f59b5af4, type: 2}
+  - {fileID: 11400000, guid: 7261362a48b8d95469e05214fff5623c, type: 2}
+  - {fileID: 11400000, guid: 012187b54a011494c91b0a4900db3d53, type: 2}
   - {fileID: 11400000, guid: a930ec3a2613fd4458b46eaa1d35da01, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   activityTextures:
   - activityType: 1
     texture: {fileID: 2800000, guid: eec0a62e892775742a301903bccbe568, type: 3}
