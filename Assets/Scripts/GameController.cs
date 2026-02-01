@@ -41,6 +41,8 @@ public class GameController
 
     public void OnInteract()
     {
+        AudioManager.Instance.PlayInteractSound();
+
         // Drop pot if holding one
         if (_heldPlantPot)
         {
@@ -59,6 +61,8 @@ public class GameController
 
     public void OnPlantPotInteraction(PlantPot plantPot)
     {
+        AudioManager.Instance.PlayInteractSound();
+
         foreach (PlantPotState plantState in _plantStates)
         {
             if (plantState.PlantPot == plantPot)
@@ -130,11 +134,14 @@ public class GameController
 public class MaskState
 {
     private int[] _features = new int[]{0, 0, 0, 0};
+    public int[] Features { get => _features; }
 
+    private GameController _gameController;
     private PlantData _plantData;
 
-    public MaskState(PlantData plantData)
+    public MaskState(GameController gameController, PlantData plantData)
     {
+        _gameController = gameController;
         _plantData = plantData;
     }
 
@@ -146,6 +153,22 @@ public class MaskState
     public void SetIndex(int growthStage, int index)
     {
         _features[growthStage] = index;
+    }
+
+    public void PlayMaskSound()
+    {
+        int totalScore = 0;
+        int totalPotentialScore = 0;
+
+        for (int i = 0; i < _features.Length; i++)
+        {
+            totalScore += _features[i];
+            totalPotentialScore += _gameController.GetTextures(i).Length - 1;
+        }
+
+        totalScore /= _features.Length;
+
+        AudioManager.Instance.PlayMaskSound(totalScore / totalPotentialScore);
     }
 }
 
@@ -190,6 +213,7 @@ public class PlantPotState
             get
             {
                 List<ActivityType> activityTypes = _gameController.GetActivityTypesFor(this);
+                //Debug.Log(activityTypes.Count);
                 return activityTypes.Contains(CurrentActivityGoal) || (CurrentActivityGoal == ActivityType.Dry && !activityTypes.Contains(ActivityType.Water));
             }
         }
@@ -242,6 +266,8 @@ public class PlantPotState
                         float maxScore = _plantData.growthStages[_growthStage].activityGoals.Length * _plantData.growSecondsPerStage;
                         float scoreRatio = (maxScore + math.clamp(_score, -maxScore, maxScore)) / (maxScore * 2);
 
+                        AudioManager.Instance.PlayMaskSound(scoreRatio);
+
                         _maskState.SetIndex(_growthStage, (int)((_gameController.GetTextures(_growthStage).Length - 1) * scoreRatio));
                         _plantPot.UpdateMask(_growthStage);
 
@@ -273,7 +299,7 @@ public class PlantPotState
 
         public void PlantSeed(PlantData plantData)
         {
-            _maskState = new MaskState(plantData);
+            _maskState = new MaskState(_gameController, plantData);
             _plantData = plantData;
             _cycleTimeRemaining = _plantData.growSecondsPerStage;
 
