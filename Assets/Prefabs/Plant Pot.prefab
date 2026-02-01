@@ -90,7 +90,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bac027a3f8a5b2429b59068bd9548d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlantPot
-  interactionPromptUIOffset: {x: 0, y: 0.4, z: 0}
+  interactionPromptUIOffset: {x: 0.35, y: 0.05, z: 0}
+  activityGoalIndicatorPrefab: {fileID: 2645955273049845827, guid: c582636b16f2542449b1f3dc4361a99d, type: 3}
+  activityGoalIndicatorOffset: {x: 0, y: 0.5, z: 0}
   plantOffset: {x: 0, y: 0.2, z: 0}
 --- !u!1 &1589294003356285366
 GameObject:

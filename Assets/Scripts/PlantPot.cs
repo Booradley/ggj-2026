@@ -1,5 +1,7 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlantPot : MonoBehaviour, IInteractable
 {
@@ -7,6 +9,7 @@ public class PlantPot : MonoBehaviour, IInteractable
     private GameObject _mask;
     private PlantData _plantData;
     private PlantState _plantState;
+    private GameObject _activityGoalIndicator;
 
     public InteractableType InteractableType => InteractableType.PlantPot;
 
@@ -16,7 +19,11 @@ public class PlantPot : MonoBehaviour, IInteractable
 
     public Vector3 InteractionPromptOffset { get => interactionPromptUIOffset; }
 
-    public bool CanInteract { get => _plantState.CanPlant || _plantState.CanHarvest; }
+    public GameObject activityGoalIndicatorPrefab;
+
+    public Vector3 activityGoalIndicatorOffset;
+
+    public bool CanInteract { get => true; }
 
     public Vector3 plantOffset;
 
@@ -28,6 +35,10 @@ public class PlantPot : MonoBehaviour, IInteractable
     void Start()
     {
         _plantState = _gameController.RegisterPlantPot(this);
+
+        _activityGoalIndicator = GameObject.Instantiate(activityGoalIndicatorPrefab);
+        _activityGoalIndicator.transform.position = this.transform.position + (Camera.main.transform.rotation * activityGoalIndicatorOffset);
+        _activityGoalIndicator.SetActive(false);
     }
 
     public void OnInteract()
@@ -44,6 +55,7 @@ public class PlantPot : MonoBehaviour, IInteractable
         _mask.transform.rotation = this.transform.rotation;
 
         UpdatePlant(0);
+        UpdateActivityGoal(0, 0);
     }
 
     public void UpdatePlant(int growthStage)
@@ -53,11 +65,23 @@ public class PlantPot : MonoBehaviour, IInteractable
 
     public void UpdateActivityGoal(int growthStage, int activityGoalIndex)
     {
-        
+        _activityGoalIndicator.SetActive(true);
+
+        VisualElement image = _activityGoalIndicator.GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("Icon");
+        image.style.backgroundImage = new StyleBackground(_gameController.GetActivityGoalTexture(_plantData.growthStages[growthStage].activityGoals[activityGoalIndex]));
+    }
+
+    public void OnPlantReady()
+    {
+        _activityGoalIndicator.SetActive(false);
+        _mask.transform.position = this.transform.position + plantOffset;
     }
 
     public void HarvestPlant()
     {
-        
+        GameObject.Destroy(_mask);
+
+        _plantData = null;
+        _mask = null;
     }
 }

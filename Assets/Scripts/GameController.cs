@@ -1,16 +1,20 @@
 using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameController
 {
     private PlantData[] _plantDatas;
+    private Dictionary<ActivityType, Texture2D> _activityGoalTextures;
     private List<PlantState> _plantStates = new List<PlantState>();
+    private PlantPot _heldPlantPot;
 
-    public void Initialize(PlantData[] plantDatas)
+    public void Initialize(PlantData[] plantDatas, Dictionary<ActivityType, Texture2D> activityGoalTextures)
     {
         _plantDatas = plantDatas;
+        _activityGoalTextures = activityGoalTextures;
     }
 
     public void Update()
@@ -26,6 +30,15 @@ public class GameController
         PlantState plantState = new PlantState(plantPot);
         _plantStates.Add(plantState);
         return plantState;
+    }
+
+    public void OnInteract()
+    {
+        // Drop pot if holding one
+        if (_heldPlantPot)
+        {
+            
+        }
     }
 
     public void OnPlantPotInteraction(PlantPot plantPot)
@@ -44,12 +57,21 @@ public class GameController
                 }
                 else
                 {
-                    
+                    // Pick pot up if not holding one
+                    if (!_heldPlantPot)
+                    {
+                        
+                    }
                 }
 
                 return;
             }
         }
+    }
+
+    public Texture2D GetActivityGoalTexture(ActivityType activityType)
+    {
+        return _activityGoalTextures[activityType];
     }
 }
 
@@ -78,8 +100,8 @@ public class PlantState
             get
             {
                 return _plantData != null 
-                    && _growthStage == _plantData.growthStages.Length 
-                    && _growthStageCycle == _plantData.growthStages[_plantData.growthStages.Length - 1].activityGoals.Length
+                    && _growthStage == _plantData.growthStages.Length - 1
+                    && _growthStageCycle == _plantData.growthStages[_plantData.growthStages.Length - 1].activityGoals.Length - 1
                     && _cycleTimeRemaining <= 0;
             }
         }
@@ -113,32 +135,37 @@ public class PlantState
             if (HasPlant && !CanHarvest)
             {
                 _cycleTimeRemaining -= Time.deltaTime;
+                _score += Time.deltaTime * (IsActivityGoalMet ? 1 : -1);
 
-                if (IsActivityGoalMet)
-                {
-                    
-                }
+                //Debug.Log($"{_growthStage}, {_growthStageCycle}, {_score}");
 
                 if (_cycleTimeRemaining <= 0)
                 {
-                    if (_growthStageCycle < _plantData.growthStages[_growthStage].activityGoals.Length)
+                    if (_growthStageCycle < _plantData.growthStages[_growthStage].activityGoals.Length - 1)
                     {
                         // Go to next Activity Goal
                         _growthStageCycle++;
                         _cycleTimeRemaining = _plantData.growSecondsPerStage;
 
                         _plantPot.UpdateActivityGoal(_growthStage, _growthStageCycle);
+
+                        Debug.Log("New Goal... Score: " + _score);
                     }
                     else
                     {
-                        // TODO: Use score to determine texture to show on mask
+                        // Use score to determine texture to show on mask
+                        float maxScore = _plantData.growthStages[_growthStage].activityGoals.Length * _plantData.growSecondsPerStage;
+                        float scoreRatio = (maxScore + math.clamp(_score, -maxScore, maxScore)) / (maxScore * 2);
 
-                        if (_growthStage < _plantData.growthStages.Length)
+                        Debug.Log("Growing... Score: " + _score + ", " + scoreRatio);
+
+                        if (_growthStage < _plantData.growthStages.Length - 1)
                         {
                             // Go to next Growth Stage
                             _growthStage++;
                             _growthStageCycle = 0;
                             _cycleTimeRemaining = _plantData.growSecondsPerStage;
+                            _score = 0;
 
                             _plantPot.UpdatePlant(_growthStage);
                             _plantPot.UpdateActivityGoal(_growthStage, _growthStageCycle);
@@ -147,9 +174,9 @@ public class PlantState
                         {
                             // Fully Grown!
                             _cycleTimeRemaining = 0;
+                            _score = 0;
 
-                            _plantPot.UpdatePlant(_growthStage + 1);
-                            return;
+                            _plantPot.OnPlantReady();
                         }
                     }
                 }
@@ -160,6 +187,7 @@ public class PlantState
         {
             _plantData = plantData;
             _plantPot.PlantSeed(plantData);
+            _cycleTimeRemaining = _plantData.growSecondsPerStage;
         }
 
         public void HarvestPlant()

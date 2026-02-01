@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour
 {
+    private GameController _gameController;
     private InputAction _interactAction;
 
     public InputActionAsset actions;
@@ -17,6 +18,8 @@ public class Interactor : MonoBehaviour
 
     private void Awake()
     {
+        _gameController = GameObject.FindFirstObjectByType<Main>().GameController;
+
         _interactAction = actions.FindActionMap("Player").FindAction("Interact");
         _interactAction.performed += OnInteractPerformed;
 
@@ -38,7 +41,14 @@ public class Interactor : MonoBehaviour
     void OnInteractPerformed(InputAction.CallbackContext context)
     {
         IInteractable closestInteractable = GetClosestInteractable();
-        closestInteractable?.OnInteract();
+        if (closestInteractable != null)
+        {
+            closestInteractable?.OnInteract();
+        }
+        else
+        {
+            _gameController.OnInteract();
+        }
     }
 
     void Update()
@@ -47,7 +57,7 @@ public class Interactor : MonoBehaviour
         if (closestInteractable != null)
         {
             _interactionPrompt.SetActive(true);
-            _interactionPrompt.transform.position = closestInteractable.Transform.position + closestInteractable.InteractionPromptOffset;
+            _interactionPrompt.transform.position = closestInteractable.Transform.position + (Camera.main.transform.rotation * closestInteractable.InteractionPromptOffset);
         } 
         else
         {
