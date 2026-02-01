@@ -7,15 +7,13 @@ using UnityEngine;
 
 public class GameController
 {
-    private PlantData[] _plantDatas;
-    private Dictionary<ActivityType, ActivityTexture> _activityGoalTextures;
+    private Main _main;
     private List<PlantPotState> _plantStates = new List<PlantPotState>();
     private PlantPot _heldPlantPot;
 
-    public void Initialize(PlantData[] plantDatas, Dictionary<ActivityType, ActivityTexture> activityGoalTextures)
+    public void Initialize(Main main)
     {
-        _plantDatas = plantDatas;
-        _activityGoalTextures = activityGoalTextures;
+        _main = main;
     }
 
     public void Update()
@@ -28,7 +26,7 @@ public class GameController
 
     public PlantPotState RegisterPlantPot(PlantPot plantPot)
     {
-        PlantPotState plantState = new PlantPotState(plantPot);
+        PlantPotState plantState = new PlantPotState(this, plantPot);
         _plantStates.Add(plantState);
         return plantState;
     }
@@ -50,7 +48,7 @@ public class GameController
             {
                 if (plantState.CanPlant)
                 {
-                    plantState.PlantSeed(_plantDatas[0]);
+                    plantState.PlantSeed(_main.plantDatas[0]);
                 }
                 else if (plantState.CanHarvest)
                 {
@@ -72,25 +70,23 @@ public class GameController
 
     public Texture2D GetActivityGoalTexture(ActivityType activityType)
     {
-        return _activityGoalTextures[activityType].texture;
+        return _main.GetActivityGoalTexture(activityType);
     }
 
     public Color GetActivityGoalTint(ActivityType activityType)
     {
-        return _activityGoalTextures[activityType].tint;
+        return _main.GetActivityGoalTint(activityType);
+    }
+
+    public Texture2D[] GetTextures(int growthStage)
+    {
+        return _main.GetTextures(growthStage);
     }
 }
 
 public class MaskState
 {
-    private int _eyeIndex;
-    public int EyeIndex { get; }
-    
-    private int _noseIndex;
-    public int NoseIndex { get; }
-
-    private int _mouthIndex;
-    public int MouthIndex { get; }
+    private int[] _features = new int[]{0, 0, 0, 0};
 
     private PlantData _plantData;
 
@@ -99,24 +95,20 @@ public class MaskState
         _plantData = plantData;
     }
 
-    public void SetEyeIndex(int index)
+    public int GetIndex(int growthStage)
     {
-        _eyeIndex = index;
+        return _features[growthStage];
     }
 
-    public void SetNoseIndex(int index)
+    public void SetIndex(int growthStage, int index)
     {
-        _noseIndex = index;
-    }
-
-    public void SetMouthIndex(int index)
-    {
-        _mouthIndex = index;
+        _features[growthStage] = index;
     }
 }
 
 public class PlantPotState
     {
+        private GameController _gameController;
         private PlantPot _plantPot;
         public PlantPot PlantPot { get => _plantPot; }
 
@@ -158,8 +150,9 @@ public class PlantPotState
         private float _cycleTimeRemaining = 0;
         private float _score = 0;
 
-        public PlantPotState(PlantPot plantPot)
+        public PlantPotState(GameController gameController, PlantPot plantPot)
         {
+            _gameController = gameController;
             _plantPot = plantPot;
             
             ResetState();
@@ -201,6 +194,8 @@ public class PlantPotState
                         // Use score to determine texture to show on mask
                         float maxScore = _plantData.growthStages[_growthStage].activityGoals.Length * _plantData.growSecondsPerStage;
                         float scoreRatio = (maxScore + math.clamp(_score, -maxScore, maxScore)) / (maxScore * 2);
+
+                        _maskState.SetIndex(_growthStage, (int)(_gameController.GetTextures(_growthStage).Length * scoreRatio));
 
                         Debug.Log("Growing... Score: " + _score + ", " + scoreRatio);
 

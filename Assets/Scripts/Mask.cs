@@ -3,9 +3,29 @@ using UnityEngine;
 public class Mask : MonoBehaviour
 {
     public MeshRenderer eyes;
+    public MeshRenderer nose;
+    public MeshRenderer mouth;
 
-    public void SetEyeIndex(int index)
+    private GameController _gameController;
+
+    void Awake()
     {
-        //eyes.material.mainTexture = 
+        _gameController = GameObject.FindFirstObjectByType<Main>().GameController;
+    }
+
+    public void SetIndex(int growthStage, int index)
+    {
+        if (growthStage == 0)
+        {
+            eyes.material.SetTexture(Shader.PropertyToID("_BaseMap"), _gameController.GetTextures(growthStage)[index]);
+        }
+        else if (growthStage == 1)
+        {
+            nose.material.SetTexture(Shader.PropertyToID("_BaseMap"), _gameController.GetTextures(growthStage)[index]);
+        }
+        else
+        {
+            mouth.material.SetTexture(Shader.PropertyToID("_BaseMap"), _gameController.GetTextures(growthStage)[index]);
+        }
     }
 }

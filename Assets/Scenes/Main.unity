@@ -260,6 +260,24 @@ MonoBehaviour:
     tint:
       serializedVersion: 2
       rgba: 4291267436
+  eyeTextures:
+  - {fileID: 2800000, guid: 4da8959492ae4a0418581b609ada430d, type: 3}
+  - {fileID: 2800000, guid: 3780b7abe86854042a9eee08a0a8ecb7, type: 3}
+  - {fileID: 2800000, guid: 21c5380bc45391648a38703e99aca719, type: 3}
+  - {fileID: 2800000, guid: 5be26c118d7e8924bb0b6554215308a9, type: 3}
+  - {fileID: 2800000, guid: 2f15b90aa3446c5418c000396aaa75e8, type: 3}
+  noseTextures:
+  - {fileID: 2800000, guid: 9c156186d7ec5ae44b055b545c3cad52, type: 3}
+  - {fileID: 2800000, guid: b8e010be1191b3240adb75d456f3a60a, type: 3}
+  - {fileID: 2800000, guid: 140b28b27b45a4c42a045f7ed6caae10, type: 3}
+  - {fileID: 2800000, guid: 94ccaa0e91f3d184094277041efe39de, type: 3}
+  - {fileID: 2800000, guid: c6004c4e644a56b45ad3b2f67ab6b00f, type: 3}
+  mouthTextures:
+  - {fileID: 2800000, guid: 40495d924126bf74681131825d3aed6a, type: 3}
+  - {fileID: 2800000, guid: 72a845fb4c7d9094a8bebb3300203907, type: 3}
+  - {fileID: 2800000, guid: 97d54abfa6c3d67438e2104932e8edc7, type: 3}
+  - {fileID: 2800000, guid: 668492b67fbdb9e419f04f20d59b774e, type: 3}
+  - {fileID: 2800000, guid: be2de47c721c9a648a7998bfa1970f5a, type: 3}
 --- !u!4 &623613761
 Transform:
   m_ObjectHideFlags: 0
@@ -694,6 +712,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
+      propertyPath: field of view
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8944336655422409496, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
       propertyPath: far clip plane
       value: 500
       objectReference: {fileID: 0}
@@ -866,6 +888,10 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 700051398}
+    - target: {fileID: 2070925441746177913, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

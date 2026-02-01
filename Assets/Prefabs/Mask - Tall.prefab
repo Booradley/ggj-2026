@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3511325375820423461, guid: 94c45c05f128f4045aaa5e6611581c29, type: 3}
+  - {fileID: 2100000, guid: f8dad6313b9bb154582da29235340bef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -249,7 +249,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7676692055808379609, guid: 94c45c05f128f4045aaa5e6611581c29, type: 3}
+  - {fileID: 2100000, guid: 246b261ec6a6bc541b25ac290cf8018a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -282,6 +282,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3217204866233651616}
+  - component: {fileID: 8834383359639981708}
   m_Layer: 0
   m_Name: Mask - Tall
   m_TagString: Untagged
@@ -308,6 +309,21 @@ Transform:
   - {fileID: 1275182367809179783}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8834383359639981708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6810451705912685569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eb5264260d9a5c499b7e57e1e01e563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Mask
+  eyes: {fileID: 1622105777319474246}
+  nose: {fileID: 1001111065114615718}
+  mouth: {fileID: 568192860399081506}
 --- !u!1 &8377113819577194912
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +390,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -614077529239667168, guid: 94c45c05f128f4045aaa5e6611581c29, type: 3}
+  - {fileID: 2100000, guid: 095407ba02176d845a5d04a81632fac5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

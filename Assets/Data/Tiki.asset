@@ -16,14 +16,8 @@ MonoBehaviour:
   growSecondsPerStage: 1
   growthStages:
   - activityGoals: 010000000200000004000000
-    textures: []
-    yOffset: -0.4
-  - activityGoals: 010000000200000004000000
-    textures: []
     yOffset: -0.3
   - activityGoals: 010000000200000004000000
-    textures: []
     yOffset: -0.2
   - activityGoals: 010000000200000004000000
-    textures: []
     yOffset: -0.1

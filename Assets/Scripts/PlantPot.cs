@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class PlantPot : MonoBehaviour, IInteractable
 {
     private GameController _gameController;
-    private GameObject _mask;
+    private Mask _mask;
     private PlantPotState _plantPotState;
     private GameObject _activityGoalIndicator;
 
@@ -47,7 +47,7 @@ public class PlantPot : MonoBehaviour, IInteractable
 
     public void OnPlantSeed()
     {
-        _mask = GameObject.Instantiate(_plantPotState.PlantData.plantPrefab);
+        _mask = GameObject.Instantiate(_plantPotState.PlantData.plantPrefab).GetComponent<Mask>();
         _mask.transform.position = this.transform.position + plantOffset;
         _mask.transform.rotation = this.transform.rotation;
 
@@ -57,7 +57,7 @@ public class PlantPot : MonoBehaviour, IInteractable
 
     public void UpdatePlant(int growthStage)
     {
-        
+        _mask.SetIndex(growthStage, _plantPotState.MaskState.GetIndex(growthStage));
         _mask.transform.position = this.transform.position + plantOffset + new Vector3(0, _plantPotState.PlantData.growthStages[growthStage].yOffset, 0);
     }
 

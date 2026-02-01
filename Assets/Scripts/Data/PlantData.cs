@@ -20,8 +20,6 @@ public struct GrowthStage
 {
     public ActivityType[] activityGoals;
 
-    public Texture[] textures;
-
     public float yOffset;
 }
 
