@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 53150379}
   - component: {fileID: 53150378}
   m_Layer: 5
-  m_Name: ButtonRight1
+  m_Name: ButtonLeft1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -391,17 +391,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac9b2b62042f564281722235fbb199e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  actions: {fileID: -944628639613478452, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}
   buttons:
-  - plantData: {fileID: 11400000, guid: a930ec3a2613fd4458b46eaa1d35da01, type: 2}
-    button: {fileID: 147513442}
-  - plantData: {fileID: 11400000, guid: a930ec3a2613fd4458b46eaa1d35da01, type: 2}
+  - plantData: {fileID: 11400000, guid: 6ebca2c3c7d237a4bbaa316211728e88, type: 2}
+    button: {fileID: 355796580}
+  - plantData: {fileID: 11400000, guid: cdb77d1a274ee0d49af57fc9f59b5af4, type: 2}
+    button: {fileID: 53150376}
+  - plantData: {fileID: 11400000, guid: 7261362a48b8d95469e05214fff5623c, type: 2}
+    button: {fileID: 2005314168}
+  - plantData: {fileID: 11400000, guid: 012187b54a011494c91b0a4900db3d53, type: 2}
     button: {fileID: 326006573}
   - plantData: {fileID: 11400000, guid: a930ec3a2613fd4458b46eaa1d35da01, type: 2}
-    button: {fileID: 2005314168}
-  - plantData: {fileID: 11400000, guid: a930ec3a2613fd4458b46eaa1d35da01, type: 2}
-    button: {fileID: 53150376}
-  - plantData: {fileID: 11400000, guid: a930ec3a2613fd4458b46eaa1d35da01, type: 2}
-    button: {fileID: 355796580}
+    button: {fileID: 147513442}
   selectionIndicator: {fileID: 1737202556}
 --- !u!1 &147513442
 GameObject:
@@ -416,7 +417,7 @@ GameObject:
   - component: {fileID: 147513445}
   - component: {fileID: 147513444}
   m_Layer: 5
-  m_Name: ButtonLeft2
+  m_Name: ButtonRight2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -537,7 +538,7 @@ GameObject:
   - component: {fileID: 326006576}
   - component: {fileID: 326006575}
   m_Layer: 5
-  m_Name: ButtonLeft1
+  m_Name: ButtonRight1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -658,7 +659,7 @@ GameObject:
   - component: {fileID: 355796583}
   - component: {fileID: 355796582}
   m_Layer: 5
-  m_Name: ButtonRight2
+  m_Name: ButtonLeft2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

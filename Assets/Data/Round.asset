@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97d985d85ea68b4409d1cd7ad049a4cc, type: 3}
+  m_Name: Round
+  m_EditorClassIdentifier: Assembly-CSharp::PlantData
+  plantPrefab: {fileID: 6217299414813761056, guid: e20de952959187843b0ca9995791e1f8, type: 3}
+  growSecondsPerStage: 1
+  growthStages:
+  - activityGoals: 010000000200000004000000
+    yOffset: -0.32
+  - activityGoals: 010000000200000004000000
+    yOffset: -0.15
+  - activityGoals: 010000000200000004000000
+    yOffset: -0.1

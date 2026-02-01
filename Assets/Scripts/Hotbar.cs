@@ -2,6 +2,7 @@ using System;
 using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
@@ -20,15 +21,28 @@ public class Hotbar : MonoBehaviour
         posX = selectionIndicator.transform.position.x;
         posY = selectionIndicator.transform.position.y;
         posZ = selectionIndicator.transform.position.z;
-        resetCursor();
+        updateSelectionIndicator();
     }
 
-    // Update is called once per frame
-    void Update()
+    private int index = 0;
+
+    private InputAction _leftAction;
+
+    private InputAction _rightAction;
+
+    private GameController _gameController;
+
+    public InputActionAsset actions;
+
+    private void Awake()
     {
-        // on input call:
-        changeCursorPos(1);
-        // where '1' will be the input value passed by the user
+        _gameController = GameObject.FindFirstObjectByType<Main>().GameController;
+
+        _leftAction = actions.FindActionMap("Player").FindAction("Left");
+        _rightAction = actions.FindActionMap("Player").FindAction("Right");
+        _leftAction.performed += moveCursorLeft;
+        _rightAction.performed += moveCursorRight;
+
     }
 
     public buttonData[] buttons;
@@ -67,24 +81,36 @@ public class Hotbar : MonoBehaviour
     }
 
     // dir is either -1 or 1, with Left being -1 and Right being 1
-    private void changeCursorPos(int dir)
+    private void moveCursorLeft(InputAction.CallbackContext context)
     {
-        float pos = selectionIndicator.transform.position.x;
-        // called when player presses <- or -> while the Hotbar is visible
-        // Moves the cursor 20 px in the corresponding direction
-        // if cursor is past the max Left pos, set cursor to max Right pos & vice versa
-        if (dir < 0)
+        if (index > 0)
         {
-            
+            index--;
         }
-        else if (dir > 0)
+        else
         {
-            
+            index = buttons.Length - 1;
         }
+        _gameController.SetPlantIndex(index);
+        updateSelectionIndicator();
     }
 
-    private void makeSelection(int type)
+    private void moveCursorRight(InputAction.CallbackContext context)
     {
-        // set the user's selection to the currently highlighted plant type
+        if (index < buttons.Length - 1)
+        {
+            index++;
+        }
+        else
+        {
+            index = 0;
+        }
+        _gameController.SetPlantIndex(index);
+        updateSelectionIndicator();
+    }
+
+    private void updateSelectionIndicator()
+    {
+        selectionIndicator.transform.position = new UnityEngine.Vector3(buttons[index].button.transform.position.x, posY, posZ);
     }
 }
