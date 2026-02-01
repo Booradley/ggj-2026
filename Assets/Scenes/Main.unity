@@ -3327,6 +3327,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 473810576424688605, guid: 29a1e44cc2b88c64299360e2d91680bc, type: 3}
+      propertyPath: 'plantDatas.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a930ec3a2613fd4458b46eaa1d35da01, type: 2}
+    - target: {fileID: 473810576424688605, guid: 29a1e44cc2b88c64299360e2d91680bc, type: 3}
+      propertyPath: 'plantDatas.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 012187b54a011494c91b0a4900db3d53, type: 2}
+    - target: {fileID: 473810576424688605, guid: 29a1e44cc2b88c64299360e2d91680bc, type: 3}
+      propertyPath: 'plantDatas.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7261362a48b8d95469e05214fff5623c, type: 2}
+    - target: {fileID: 473810576424688605, guid: 29a1e44cc2b88c64299360e2d91680bc, type: 3}
+      propertyPath: 'plantDatas.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: cdb77d1a274ee0d49af57fc9f59b5af4, type: 2}
+    - target: {fileID: 473810576424688605, guid: 29a1e44cc2b88c64299360e2d91680bc, type: 3}
+      propertyPath: 'plantDatas.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ebca2c3c7d237a4bbaa316211728e88, type: 2}
     - target: {fileID: 3587250238553970097, guid: 29a1e44cc2b88c64299360e2d91680bc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.0841

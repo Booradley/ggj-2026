@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Round
   m_EditorClassIdentifier: Assembly-CSharp::PlantData
   plantPrefab: {fileID: 6217299414813761056, guid: e20de952959187843b0ca9995791e1f8, type: 3}
-  growSecondsPerStage: 1
+  growSecondsPerStage: 2
   growthStages:
   - activityGoals: 010000000200000004000000
     yOffset: -0.32

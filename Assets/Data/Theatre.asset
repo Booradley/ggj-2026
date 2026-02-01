@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Theatre
   m_EditorClassIdentifier: Assembly-CSharp::PlantData
   plantPrefab: {fileID: 6662109466184837023, guid: 2d2163075ce4623459313302c34382c2, type: 3}
-  growSecondsPerStage: 1
+  growSecondsPerStage: 2
   growthStages:
   - activityGoals: 010000000200000004000000
     yOffset: -0.32
