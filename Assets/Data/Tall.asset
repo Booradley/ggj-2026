@@ -15,7 +15,7 @@ MonoBehaviour:
   plantPrefab: {fileID: 6810451705912685569, guid: 9969479db0652234284f694f6672583c, type: 3}
   growSecondsPerStage: 9
   growthStages:
-  - activityGoals: 01000000030000000400000007000000
+  - activityGoals: 01000000030000000400000003000000
     yOffset: -0.32
   - activityGoals: 030000000100000004000000
     yOffset: -0.15
