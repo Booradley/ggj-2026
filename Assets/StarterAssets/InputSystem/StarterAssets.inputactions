@@ -52,9 +52,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Hotbar",
+                    "name": "Left",
                     "type": "Button",
                     "id": "4865a60b-1869-4bd1-b3ef-d4f3fea8c264",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Right",
+                    "type": "Button",
+                    "id": "14e3d4b4-cf14-408e-a36c-9650959f5bf0",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -267,18 +276,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
-                    "action": "Hotbar",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ba084fc1-646c-4248-a288-b60c51aed168",
-                    "path": "<Keyboard>/rightArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "Hotbar",
+                    "action": "Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -289,29 +287,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad;Xbox Controller;PS4 Controller",
-                    "action": "Hotbar",
+                    "action": "Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "4c697ce6-7249-4666-bb23-057379f04f5c",
+                    "id": "8ae893d8-c600-4594-ab9c-f84a640ea93d",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardMouse",
+                    "action": "Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b8240051-bf78-4a5b-b726-03578222e094",
                     "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad;Xbox Controller;PS4 Controller",
-                    "action": "Hotbar",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f62eaf8e-a512-4f2c-b64f-f880f8bd5f26",
-                    "path": "<Mouse>/middleButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardMouse",
-                    "action": "Hotbar",
+                    "action": "Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
