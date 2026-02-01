@@ -13,6 +13,7 @@ public enum ActivityType
     Quiet,
     Hot,
     Cold,
+    Bug,
 }
 
 [Serializable]
