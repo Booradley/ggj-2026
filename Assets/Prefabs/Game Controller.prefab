@@ -95,6 +95,11 @@ MonoBehaviour:
     tint:
       serializedVersion: 2
       rgba: 4291267436
+  - activityType: 9
+    texture: {fileID: 2800000, guid: c449ae53e0f0df746a21164ae86f9652, type: 3}
+    tint:
+      serializedVersion: 2
+      rgba: 4286039916
   eyeTextures:
   - {fileID: 2800000, guid: 4da8959492ae4a0418581b609ada430d, type: 3}
   - {fileID: 2800000, guid: 3780b7abe86854042a9eee08a0a8ecb7, type: 3}
